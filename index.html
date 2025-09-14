@@ -1,216 +1,600 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Awindas R — Portfolio</title>
-  <meta name="description" content="Portfolio of Awindas R — Developer & Tech Lead. Built with HTML, CSS and JS. Pastel palette, micro-interactions, responsive." />
-
-  <!-- Google Font -->
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Awindas R - Portfolio</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    :root{
-      --bg: #FBFCFD;
-      --muted:#6B7280;
-      /* Two pastel accent colors only */
-      --accent-1: #E6E6FA; /* pastel lavender */
-      --accent-2: #D8BFD8; /* thistle */
-
-      --card-radius: 14px;
-      --glass: rgba(255,255,255,0.6);
-      --shadow: 0 6px 18px rgba(12,18,30,0.06);
-      --glass-2: rgba(255,255,255,0.7);
+    :root {
+      --background: #FFFFFF; /* White */
+      --foreground: #000000; /* Black */
+      --card: #F5F5F5; /* Light gray */
+      --card-foreground: #000000; /* Black */
+      --popover: #FFFFFF; /* White */
+      --popover-foreground: #000000; /* Black */
+      --primary: #000000; /* Black */
+      --primary-foreground: #FFFFFF; /* White */
+      --secondary: #000000; /* Black */
+      --secondary-foreground: #FFFFFF; /* White */
+      --muted: #D3D3D3; /* Light gray */
+      --muted-foreground: #696969; /* Dim gray */
+      --accent: #000000; /* Black */
+      --accent-foreground: #FFFFFF; /* White */
+      --destructive: #696969; /* Dim gray */
+      --destructive-foreground: #FFFFFF; /* White */
+      --border: #000000; /* Black */
+      --input: #F5F5F5; /* Light gray */
+      --ring: #000000; /* Black */
+      --chart-1: #000000; /* Black */
+      --chart-2: #000000; /* Black */
+      --chart-3: #000000; /* Black */
+      --chart-4: #D3D3D3; /* Light gray */
+      --chart-5: #FFFFFF; /* White */
+      --radius: 0.75rem;
+      --sidebar: #FFFFFF; /* White */
+      --sidebar-foreground: #000000; /* Black */
+      --sidebar-primary: #000000; /* Black */
+      --sidebar-primary-foreground: #FFFFFF; /* White */
+      --sidebar-accent: #000000; /* Black */
+      --sidebar-accent-foreground: #FFFFFF; /* White */
+      --sidebar-border: #000000; /* Black */
+      --sidebar-ring: #000000; /* Black */
     }
 
-    *{box-sizing:border-box}
-    html,body{height:100%;}
-    body{
-      margin:0;
-      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-      background: linear-gradient(180deg,var(--bg) 0%, #ffffff 100%);
-      color:#0f172a;
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
-      line-height:1.45;
-      padding:32px;
+    * {
+      border-color: var(--border);
+      outline-color: var(--ring);
     }
 
-    .wrap{max-width:1100px;margin:0 auto;}
-    header{display:flex;align-items:center;justify-content:space-between;gap:24px;margin-bottom:28px}
-
-    .brand{display:flex;gap:14px;align-items:center}
-    .logo{
-      width:56px;height:56px;border-radius:12px;display:grid;place-items:center;font-weight:700;
-      background:linear-gradient(135deg,var(--accent-1),var(--accent-2));
-      color: #05263b; box-shadow: var(--shadow);
+    body {
+      background-color: var(--background);
+      color: var(--foreground);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     }
-    .brand h1{margin:0;font-size:18px;letter-spacing:0.2px}
-    .brand p{margin:0;font-size:12px;color:var(--muted)}
 
-    nav{display:flex;gap:14px;align-items:center}
-    .nav-link{padding:8px 12px;border-radius:10px;text-decoration:none;color:var(--muted);font-size:14px}
-    .nav-link:hover{background:var(--glass-2);color:#071126}
+    /* Custom animations */
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0px);
+      }
+      50% {
+        transform: translateY(-20px);
+      }
+    }
 
-    .hero{background:linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0.2));border-radius:20px;padding:28px;display:grid;grid-template-columns:1fr 360px;gap:28px;align-items:center;box-shadow:var(--shadow);}
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
 
-    .intro h2{font-size:28px;margin:0 0 8px}
-    .intro p{margin:0 0 18px;color:var(--muted)}
+    @keyframes slideInLeft {
+      from {
+        opacity: 0;
+        transform: translateX(-30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
 
-    .cta{display:flex;gap:12px}
-    .btn{background:transparent;border:1px solid rgba(7,18,38,0.06);padding:10px 14px;border-radius:12px;cursor:pointer;font-weight:600}
-    .btn-primary{background:linear-gradient(90deg,var(--accent-1),var(--accent-2));box-shadow:0 8px 30px rgba(150,120,200,0.18);border:none}
+    @keyframes pulse-glow {
+      0%, 100% {
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+      }
+      50% {
+        box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+      }
+    }
 
-    .profile-card{background:linear-gradient(180deg, rgba(255,255,255,0.75), rgba(255,255,255,0.6));border-radius:16px;padding:20px;display:flex;gap:14px;align-items:center;box-shadow:var(--shadow)}
-    .avatar{width:72px;height:72px;border-radius:12px;background:linear-gradient(135deg,var(--accent-2),var(--accent-1));display:grid;place-items:center;font-weight:700;color:#05263b}
+    .animate-float {
+      animation: float 6s ease-in-out infinite;
+    }
 
-    section{margin-top:28px}
-    .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-    .card{background:#fff;border-radius:var(--card-radius);padding:18px;box-shadow:var(--shadow);transition:transform .36s cubic-bezier(.2,.9,.2,1), box-shadow .36s}
-    .card:hover{transform:translateY(-8px);box-shadow:0 18px 40px rgba(12,18,30,0.08)}
+    .animate-fade-in-up {
+      animation: fadeInUp 0.8s ease-out forwards;
+    }
 
-    .projects{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
-    .project-card{display:flex;flex-direction:column;gap:12px;padding:18px;border-radius:12px;background:linear-gradient(180deg, rgba(230,230,250,0.06), rgba(216,191,216,0.03));border:1px solid rgba(7,18,38,0.03)}
-    .tags{display:flex;gap:8px}
-    .tag{padding:6px 8px;border-radius:8px;font-size:12px;background:rgba(255,255,255,0.6)}
+    .animate-slide-in-left {
+      animation: slideInLeft 0.8s ease-out forwards;
+    }
 
-    .skill{display:flex;align-items:center;justify-content:space-between;gap:12px}
-    .skill .bar{height:10px;background:#fff;border-radius:999px;box-shadow:inset 0 2px 6px rgba(12,18,30,0.03);flex:1;margin-left:12px}
-    .bar > i{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,var(--accent-1),var(--accent-2));width:0%;transition:width 700ms}
+    .animate-pulse-glow {
+      animation: pulse-glow 2s ease-in-out infinite;
+    }
 
-    .timeline{border-left:2px dashed rgba(7,18,38,0.06);padding-left:18px}
-    .timeline-item{margin-bottom:18px;position:relative}
-    .timeline-item::before{content:'';position:absolute;left:-11px;top:6px;width:14px;height:14px;border-radius:50%;background:linear-gradient(135deg,var(--accent-1),var(--accent-2));box-shadow:0 6px 18px rgba(12,18,30,0.06)}
+    /* Smooth scrolling */
+    html {
+      scroll-behavior: smooth;
+    }
 
-    .contact-form{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-    input,textarea{padding:10px;border-radius:10px;border:1px solid rgba(7,18,38,0.06);font-size:14px}
-    textarea{grid-column:1/-1;min-height:110px}
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
 
-    footer{margin-top:28px;text-align:center;color:var(--muted);font-size:13px}
+    ::-webkit-scrollbar-track {
+      background: var(--muted);
+    }
 
-    .float{animation:float 6s ease-in-out infinite}
-    @keyframes float{0%{transform:translateY(0)}50%{transform:translateY(-8px)}100%{transform:translateY(0)}}
+    ::-webkit-scrollbar-thumb {
+      background: var(--primary);
+      border-radius: 4px;
+    }
 
-    .reveal{opacity:0;transform:translateY(10px);transition:opacity .6s ease, transform .6s ease}
-    .reveal.show{opacity:1;transform:translateY(0)}
-
-    @media (max-width:980px){.hero{grid-template-columns:1fr}.projects{grid-template-columns:1fr}.grid-3{grid-template-columns:repeat(2,1fr)}}
-    @media (max-width:640px){body{padding:18px}.grid-3{grid-template-columns:1fr}nav{display:none}header{flex-direction:column;align-items:flex-start}.profile-card{width:100%}.contact-form{grid-template-columns:1fr}.avatar{width:56px;height:56px}}
-
-    .underline{position:relative}
-    .underline:after{content:'';position:absolute;left:0;bottom:-4px;height:3px;width:0;background:linear-gradient(90deg,var(--accent-1),var(--accent-2));border-radius:4px;transition:width .28s}
-    .underline:hover:after{width:100%}
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--secondary);
+    }
   </style>
 </head>
-<body>
-  <div class="wrap">
-    <header>
-      <div class="brand">
-        <div class="logo">AR</div>
-        <div>
-          <h1>Awindas R</h1>
-          <p>Developer • Tech Lead • UI-focused</p>
+<body class="min-h-screen">
+  <!-- Navigation -->
+  <nav id="navbar" class="fixed top-0 w-full z-50 transition-all duration-300 bg-transparent">
+    <div class="max-w-6xl mx-auto px-6 py-4">
+      <div class="flex justify-between items-center">
+        <div class="text-2xl font-bold text-[var(--primary)]">Awindas R</div>
+        <div class="hidden md:flex space-x-8">
+          <button onclick="scrollToSection('home')" class="transition-colors duration-300 hover:text-[var(--primary)] text-[var(--foreground)] nav-link" data-section="home">Home</button>
+          <button onclick="scrollToSection('about')" class="transition-colors duration-300 hover:text-[var(--primary)] text-[var(--foreground)] nav-link" data-section="about">About</button>
+          <button onclick="scrollToSection('experience')" class="transition-colors duration-300 hover:text-[var(--primary)] text-[var(--foreground)] nav-link" data-section="experience">Experience</button>
+          <button onclick="scrollToSection('projects')" class="transition-colors duration-300 hover:text-[var(--primary)] text-[var(--foreground)] nav-link" data-section="projects">Projects</button>
+          <button onclick="scrollToSection('skills')" class="transition-colors duration-300 hover:text-[var(--primary)] text-[var(--foreground)] nav-link" data-section="skills">Skills</button>
+          <button onclick="scrollToSection('contact')" class="transition-colors duration-300 hover:text-[var(--primary)] text-[var(--foreground)] nav-link" data-section="contact">Contact</button>
         </div>
       </div>
-      <nav>
-        <a class="nav-link" href="#about">About</a>
-        <a class="nav-link" href="#projects">Projects</a>
-        <a class="nav-link" href="#experience">Experience</a>
-        <a class="nav-link" href="#contact">Contact</a>
-      </nav>
-    </header>
+    </div>
+  </nav>
 
-    <main>
-      <section class="hero">
-        <div class="intro">
-          <h2 class="reveal">Hi, I’m Awindas — building delightful web experiences.</h2>
-          <p class="reveal">Tech Lead & Frontend engineer with experience in React, Next.js and design systems.</p>
-          <div class="cta reveal">
-            <a class="btn btn-primary" href="awinsresume.pdf" target="_blank">View Resume</a>
-            <a class="btn underline" href="https://github.com/awindsr" target="_blank">GitHub</a>
-          </div>
-          <div class="grid-3">
-            <div class="card reveal"><h4>Location</h4><p class="muted">Palakkad, Kerala</p></div>
-            <div class="card reveal"><h4>Role</h4><p class="muted">Associate Developer & Tech Lead</p></div>
-            <div class="card reveal"><h4>Contact</h4><p class="muted">awindsr@gmail.com • +91 9188684115</p></div>
-          </div>
-        </div>
-        <aside class="profile-card float reveal">
-          <div class="avatar">AR</div>
-          <div class="meta">
-            <h3>Awindas R</h3>
-            <p class="muted">B.Tech CSE — 2025 • SJCET Palai</p>
-            <p><a class="underline" href="https://theaw.in" target="_blank">theaw.in</a></p>
-          </div>
-        </aside>
-      </section>
+  <!-- Hero Section -->
+  <section id="home" class="min-h-screen flex items-center justify-center relative overflow-hidden">
+    <div class="absolute inset-0 z-0">
+      <div class="absolute top-20 left-20 w-32 h-32 bg-[var(--primary)]/20 rounded-full animate-float"></div>
+      <div class="absolute top-40 right-32 w-24 h-24 bg-[var(--primary)]/20 rounded-full animate-float" style="animation-delay: 2s;"></div>
+      <div class="absolute bottom-32 left-1/3 w-20 h-20 bg-[var(--primary)]/20 rounded-full animate-float" style="animation-delay: 4s;"></div>
+    </div>
 
-      <section id="about">
-        <h3>About</h3>
-        <p class="muted">Creative developer with a focus on UX, design systems and scalable frontend architecture.</p>
-        <div style="display:grid;grid-template-columns:1fr 360px;gap:18px;margin-top:14px">
-          <div>
-            <h4>Skills</h4>
-            <div class="skill reveal"><div>React / Next.js</div><div class="bar"><i style="width:92%"></i></div></div>
-            <div class="skill reveal"><div>TypeScript / JavaScript</div><div class="bar"><i style="width:88%"></i></div></div>
-            <div class="skill reveal"><div>Design & Figma</div><div class="bar"><i style="width:78%"></i></div></div>
-            <div class="skill reveal"><div>Backend & APIs</div><div class="bar"><i style="width:72%"></i></div></div>
-          </div>
-          <div class="card reveal">
-            <h4>Contact</h4>
-            <p class="muted">awindsr@gmail.com</p>
-            <p class="muted">+91 9188684115</p>
-            <a class="btn" href="https://linkedin.com/in/awindsr" target="_blank">LinkedIn</a>
-            <a class="btn" href="https://github.com/awindsr" target="_blank">GitHub</a>
+    <div class="text-center z-10 max-w-4xl mx-auto px-6">
+      <h1 class="text-5xl md:text-7xl font-bold mb-6 animate-fade-in-up">
+        <span class="text-[var(--primary)]">Awindas</span> <span class="text-[var(--primary)]">R</span>
+      </h1>
+      <p class="text-xl md:text-2xl text-[var(--muted-foreground)] mb-8 animate-fade-in-up" style="animation-delay: 0.2s;">
+        Full-Stack Developer & Tech Lead
+      </p>
+      <p class="text-lg text-[var(--muted-foreground)] mb-12 max-w-2xl mx-auto animate-fade-in-up" style="animation-delay: 0.4s;">
+        Building scalable web applications and leading development teams to create impactful digital experiences
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in-up" style="animation-delay: 0.6s;">
+        <button onclick="scrollToSection('projects')" class="bg-[var(--primary)] text-[var(--primary-foreground)] px-8 py-3 rounded-lg hover:bg-[var(--primary)]/90 transition-all duration-300 hover:scale-105 animate-pulse-glow">
+          View My Work
+        </button>
+        <button onclick="scrollToSection('contact')" class="border-2 border-[var(--primary)] text-[var(--primary)] px-8 py-3 rounded-lg hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] transition-all duration-300 hover:scale-105">
+          Get In Touch
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="py-20 bg-[var(--card)]">
+    <div class="max-w-6xl mx-auto px-6">
+      <h2 class="text-4xl font-bold text-center mb-16 text-[var(--primary)]">About Me</h2>
+      <div class="grid md:grid-cols-2 gap-12 items-center">
+        <div class="animate-slide-in-left">
+          <div class="w-80 h-80 mx-auto bg-gradient-to-br from-[var(--primary)]/20 to-[var(--primary)]/20 rounded-full flex items-center justify-center">
+            <div class="w-72 h-72 bg-[var(--muted)] rounded-full flex items-center justify-center text-6xl font-bold text-[var(--primary)]">
+              AR
+            </div>
           </div>
         </div>
-      </section>
-
-      <section id="projects">
-        <h3>Selected Projects</h3>
-        <div class="projects">
-          <article class="project-card reveal"><div class="project-meta"><strong>MuLearn 4.0 Dashboard</strong><div class="tags"><span class="tag">React</span><span class="tag">Tailwind</span></div></div><p class="muted">Dashboard for 46,000+ users with React, TS, Django REST.</p></article>
-          <article class="project-card reveal"><div class="project-meta"><strong>Innovation Excellence Dashboard</strong><div class="tags"><span class="tag">React</span><span class="tag">Supabase</span></div></div><p class="muted">Full-stack dashboard with role-based access.</p></article>
-          <article class="project-card reveal"><div class="project-meta"><strong>TipMe</strong><div class="tags"><span class="tag">React</span><span class="tag">Supabase</span></div></div><p class="muted">Tipping app for restaurants.</p></article>
-          <article class="project-card reveal"><div class="project-meta"><strong>ECSA SJCET Website</strong><div class="tags"><span class="tag">React</span><span class="tag">jQuery</span></div></div><p class="muted">Dynamic website for ECSA.</p></article>
+        <div class="animate-fade-in-up">
+          <h3 class="text-2xl font-semibold mb-6 text-[var(--primary)]">Computer Science Student & Tech Leader</h3>
+          <p class="text-[var(--muted-foreground)] mb-6 leading-relaxed">
+            I'm a passionate Computer Science student at St. Joseph's College of Engineering and Technology, currently pursuing my B.Tech degree. With extensive experience in full-stack development and team leadership, I've successfully led projects serving over 46,000+ users.
+          </p>
+          <p class="text-[var(--muted-foreground)] mb-6 leading-relaxed">
+            As an Associate Developer and Tech Lead at MuLearn Foundation, I've defined technical roadmaps, managed cross-functional teams, and built scalable applications using modern technologies like React, Django, and PostgreSQL.
+          </p>
+          <div class="flex flex-wrap gap-4">
+            <div class="flex items-center gap-2">
+              <div class="w-3 h-3 bg-[var(--primary)] rounded-full"></div>
+              <span class="text-sm">📧 awindsr@gmail.com</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <div class="w-3 h-3 bg-[var(--primary)] rounded-full"></div>
+              <span class="text-sm">📱 +919188684115</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <div class="w-3 h-3 bg-[var(--primary)] rounded-full"></div>
+              <span class="text-sm">🌐 theaw.in</span>
+            </div>
+          </div>
         </div>
-      </section>
+      </div>
+    </div>
+  </section>
 
-      <section id="experience">
-        <h3>Experience & Education</h3>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
-          <div class="card reveal"><h4>MuLearn — Associate Developer & Tech Lead</h4><p class="muted">Jan 2025 — Present</p><ul class="muted"><li>Led development of mulearn.org and platform for 46k+ users.</li><li>Managed team of 9+ and improved workflows.</li></ul></div>
-          <div class="card reveal"><h4>St. Joseph's College of Engineering and Technology</h4><p class="muted">B.Tech CSE (2021 - 2025)</p></div>
+  <!-- Experience Section -->
+  <section id="experience" class="py-20">
+    <div class="max-w-6xl mx-auto px-6">
+      <h2 class="text-4xl font-bold text-center mb-16 text-[var(--primary)]">Experience</h2>
+      <div class="space-y-12">
+        <!-- MuLearn Foundation -->
+        <div class="bg-[var(--card)] p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02]">
+          <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
+            <h3 class="text-2xl font-semibold text-[var(--primary)]">Associate Developer & Tech Lead</h3>
+            <span class="text-[var(--primary)] font-medium">Jan 2025 - Present</span>
+          </div>
+          <p class="text-lg text-[var(--muted-foreground)] mb-4">MuLearn Foundation</p>
+          <ul class="space-y-2 text-[var(--muted-foreground)]">
+            <li class="flex items-start gap-2">
+              <div class="w-2 h-2 bg-[var(--primary)] rounded-full mt-2 flex-shrink-0"></div>
+              Led development of mulearn.org serving 46,000+ users using React, Django, and PostgreSQL
+            </li>
+            <li class="flex items-start gap-2">
+              <div class="w-2 h-2 bg-[var(--primary)] rounded-full mt-2 flex-shrink-0"></div>
+              Managed team of 9+, achieving 2x faster feature delivery through improved sprint throughput
+            </li>
+            <li class="flex items-start gap-2">
+              <div class="w-2 h-2 bg-[var(--primary)] rounded-full mt-2 flex-shrink-0"></div>
+              Built modular frontend architecture reducing new feature development time by 30%
+            </li>
+            <li class="flex items-start gap-2">
+              <div class="w-2 h-2 bg-[var(--primary)] rounded-full mt-2 flex-shrink-0"></div>
+              Integrated gamified systems leading to 70% increase in user activity
+            </li>
+          </ul>
         </div>
-      </section>
 
-      <section id="contact">
-        <h3>Get in touch</h3>
-        <form class="contact-form" onsubmit="handleContact(event)">
-          <div><label class="muted">Name</label><input id="name" required></div>
-          <div><label class="muted">Email</label><input id="email" type="email" required></div>
-          <div style="grid-column:1/-1"><label class="muted">Message</label><textarea id="message" required></textarea></div>
-          <div style="grid-column:1/-1;text-align:right"><button class="btn btn-primary" type="submit">Send</button></div>
-        </form>
-      </section>
+        <!-- The Nexus Project -->
+        <div class="bg-[var(--card)] p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02]">
+          <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
+            <h3 class="text-2xl font-semibold text-[var(--primary)]">Web Lead & Core Team Member</h3>
+            <span class="text-[var(--primary)] font-medium">2024 - Present</span>
+          </div>
+          <p class="text-lg text-[var(--muted-foreground)] mb-4">The Nexus Project (FOSS Community)</p>
+          <ul class="space-y-2 text-[var(--muted-foreground)]">
+            <li class="flex items-start gap-2">
+              <div class="w-2 h-2 bg-[var(--primary)] rounded-full mt-2 flex-shrink-0"></div>
+              Developed official website using Next.js and TypeScript with SSR optimization
+            </li>
+            <li class="flex items-start gap-2">
+              <div class="w-2 h-2 bg-[var(--primary)] rounded-full mt-2 flex-shrink-0"></div>
+              Implemented SEO optimization and static site generation for better discoverability
+            </li>
+            <li class="flex items-start gap-2">
+              <div class="w-2 h-2 bg-[var(--primary)] rounded-full mt-2 flex-shrink-0"></div>
+              Streamlined collaborative development via GitHub workflows
+            </li>
+          </ul>
+        </div>
 
-      <footer><p>Made with care • Pastel lavender palette • © Awindas R</p></footer>
-    </main>
-  </div>
+        <!-- Campus Lead -->
+        <div class="bg-[var(--card)] p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02]">
+          <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
+            <h3 class="text-2xl font-semibold text-[var(--primary)]">Campus Lead</h3>
+            <span class="text-[var(--primary)] font-medium">2023 - Present</span>
+          </div>
+          <p class="text-lg text-[var(--muted-foreground)] mb-4">MuLearn - SJCET, Palai</p>
+          <ul class="space-y-2 text-[var(--muted-foreground)]">
+            <li class="flex items-start gap-2">
+              <div class="w-2 h-2 bg-[var(--primary)] rounded-full mt-2 flex-shrink-0"></div>
+              Led team of 15+ members, achieving 90% increase in points system
+            </li>
+            <li class="flex items-start gap-2">
+              <div class="w-2 h-2 bg-[var(--primary)] rounded-full mt-2 flex-shrink-0"></div>
+              Made college first in Kerala to reach 1 million points
+            </li>
+            <li class="flex items-start gap-2">
+              <div class="w-2 h-2 bg-[var(--primary)] rounded-full mt-2 flex-shrink-0"></div>
+              Conducted workshops and training sessions for skill development
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects Section -->
+  <section id="projects" class="py-20 bg-[var(--card)]">
+    <div class="max-w-6xl mx-auto px-6">
+      <h2 class="text-4xl font-bold text-center mb-16 text-[var(--primary)]">Featured Projects</h2>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- MuLearn 4.0 Dashboard -->
+        <div class="bg-[var(--background)] p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 group">
+          <div class="h-48 bg-gradient-to-br from-[var(--primary)]/20 to-[var(--primary)]/20 rounded-lg mb-6 flex items-center justify-center">
+            <div class="text-4xl font-bold text-[var(--primary)] group-hover:scale-110 transition-transform duration-300">
+              ML 4.0
+            </div>
+          </div>
+          <h3 class="text-xl font-semibold mb-3 text-[var(--primary)]">MuLearn 4.0 Dashboard</h3>
+          <p class="text-[var(--muted-foreground)] mb-4 text-sm leading-relaxed">
+            Centralized dashboard for 46,000+ users built with ReactJS, TypeScript, and Django REST API. Achieved 70% increase in user engagement.
+          </p>
+          <div class="flex flex-wrap gap-2 mb-4">
+            <span class="bg-[var(--primary)]/20 text-[var(--primary)] px-2 py-1 rounded text-xs">React</span>
+            <span class="bg-[var(--primary)]/20 text-[var(--primary)] px-2 py-1 rounded text-xs">TypeScript</span>
+            <span class="bg-[var(--primary)]/20 text-[var(--primary)] px-2 py-1 rounded text-xs">Django</span>
+          </div>
+        </div>
+
+        <!-- Innovation Excellence Dashboard -->
+        <div class="bg-[var(--background)] p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 group">
+          <div class="h-48 bg-gradient-to-br from-[var(--primary)]/20 to-[var(--primary)]/20 rounded-lg mb-6 flex items-center justify-center">
+            <div class="text-4xl font-bold text-[var(--primary)] group-hover:scale-110 transition-transform duration-300">
+              IED
+            </div>
+          </div>
+          <h3 class="text-xl font-semibold mb-3 text-[var(--primary)]">Innovation Excellence Dashboard</h3>
+          <p class="text-[var(--muted-foreground)] mb-4 text-sm leading-relaxed">
+            Full-stack dashboard for academic innovation tracking with role-based access control. Reduced manual review overhead by 40%.
+          </p>
+          <div class="flex flex-wrap gap-2 mb-4">
+            <span class="bg-[var(--primary)]/20 text-[var(--primary)] px-2 py-1 rounded text-xs">React</span>
+            <span class="bg-[var(--primary)]/20 text-[var(--primary)] px-2 py-1 rounded text-xs">Supabase</span>
+            <span class="bg-[var(--primary)]/20 text-[var(--primary)] px-2 py-1 rounded text-xs">Redux</span>
+          </div>
+        </div>
+
+        <!-- TipMe App -->
+        <div class="bg-[var(--background)] p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 group">
+          <div class="h-48 bg-gradient-to-br from-[var(--primary)]/20 to-[var(--primary)]/20 rounded-lg mb-6 flex items-center justify-center">
+            <div class="text-4xl font-bold text-[var(--primary)] group-hover:scale-110 transition-transform duration-300">
+              TIP
+            </div>
+          </div>
+          <h3 class="text-xl font-semibold mb-3 text-[var(--primary)]">TipMe - Restaurant Tipping App</h3>
+          <p class="text-[var(--muted-foreground)] mb-4 text-sm leading-relaxed">
+            User-centric tipping app with modern UI achieving load times under 2 seconds. Built in 4 days with multiple user roles.
+          </p>
+          <div class="flex flex-wrap gap-2 mb-4">
+            <span class="bg-[var(--primary)]/20 text-[var(--primary)] px-2 py-1 rounded text-xs">React</span>
+            <span class="bg-[var(--primary)]/20 text-[var(--primary)] px-2 py-1 rounded text-xs">Node.js</span>
+            <span class="bg-[var(--primary)]/20 text-[var(--primary)] px-2 py-1 rounded text-xs">Express</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills Section -->
+  <section id="skills" class="py-20">
+    <div class="max-w-6xl mx-auto px-6">
+      <h2 class="text-4xl font-bold text-center mb-16 text-[var(--primary)]">Skills & Technologies</h2>
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div class="bg-[var(--card)] p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300">
+          <h3 class="text-lg font-semibold mb-4 text-[var(--primary)]">Frontend</h3>
+          <div class="space-y-3">
+            <div class="flex items-center gap-3">
+              <div class="w-2 h-2 bg-[var(--primary)] rounded-full"></div>
+              <span class="text-[var(--muted-foreground)]">HTML/CSS</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <div class="w-2 h-2 bg-[var(--primary)] rounded-full"></div>
+              <span class="text-[var(--muted-foreground)]">JavaScript</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <div class="w-2 h-2 bg-[var(--primary)] rounded-full"></div>
+              <span class="text-[var(--muted-foreground)]">TypeScript</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <div class="w-2 h-2 bg-[var(--primary)] rounded-full"></div>
+              <span class="text-[var(--muted-foreground)]">ReactJS</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <div class="w-2 h-2 bg-[var(--primary)] rounded-full"></div>
+              <span class="text-[var(--muted-foreground)]">NextJS</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-[var(--card)] p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300">
+          <h3 class="text-lg font-semibold mb-4 text-[var(--primary)]">Backend</h3>
+          <div class="space-y-3">
+            <div class="flex items-center gap-3">
+              <div class="w-2 h-2 bg-[var(--primary)] rounded-full"></div>
+              <span class="text-[var(--muted-foreground)]">Node.js</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <div class="w-2 h-2 bg-[var(--primary)] rounded-full"></div>
+              <span class="text-[var(--muted-foreground)]">Express.js</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <div class="w-2 h-2 bg-[var(--primary)] rounded-full"></div>
+              <span class="text-[var(--muted-foreground)]">Django</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <div class="w-2 h-2 bg-[var(--primary)] rounded-full"></div>
+              <span class="text-[var(--muted-foreground)]">REST APIs</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <div class="w-2 h-2 bg-[var(--primary)] rounded-full"></div>
+              <span class="text-[var(--muted-foreground)]">Java</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-[var(--card)] p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300">
+          <h3 class="text-lg font-semibold mb-4 text-[var(--primary)]">Database & Tools</h3>
+          <div class="space-y-3">
+            <div class="flex items-center gap-3">
+              <div class="w-2 h-2 bg-[var(--primary)] rounded-full"></div>
+              <span class="text-[var(--muted-foreground)]">PostgreSQL</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <div class="w-2 h-2 bg-[var(--primary)] rounded-full"></div>
+              <span class="text-[var(--muted-foreground)]">MongoDB</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <div class="w-2 h-2 bg-[var(--primary)] rounded-full"></div>
+              <span class="text-[var(--muted-foreground)]">Supabase</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <div class="w-2 h-2 bg-[var(--primary)] rounded-full"></div>
+              <span class="text-[var(--muted-foreground)]">Git/GitHub</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <div class="w-2 h-2 bg-[var(--primary)] rounded-full"></div>
+              <span class="text-[var(--muted-foreground)]">Docker</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-[var(--card)] p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300">
+          <h3 class="text-lg font-semibold mb-4 text-[var(--primary)]">Design & Others</h3>
+          <div class="space-y-3">
+            <div class="flex items-center gap-3">
+              <div class="w-2 h-2 bg-[var(--primary)] rounded-full"></div>
+              <span class="text-[var(--muted-foreground)]">Tailwind CSS</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <div class="w-2 h-2 bg-[var(--primary)] rounded-full"></div>
+              <span class="text-[var(--muted-foreground)]">Figma</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <div class="w-2 h-2 bg-[var(--primary)] rounded-full"></div>
+              <span class="text-[var(--muted-foreground)]">Blender</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <div class="w-2 h-2 bg-[var(--primary)] rounded-full"></div>
+              <span class="text-[var(--muted-foreground)]">WebGL</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <div class="w-2 h-2 bg-[var(--primary)] rounded-full"></div>
+              <span class="text-[var(--muted-foreground)]">Leadership</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="py-20 bg-[var(--card)]">
+    <div class="max-w-4xl mx-auto px-6">
+      <h2 class="text-4xl font-bold text-center mb-16 text-[var(--primary)]">Get In Touch</h2>
+      <div class="grid md:grid-cols-2 gap-12">
+        <div class="animate-slide-in-left">
+          <h3 class="text-2xl font-semibold mb-6 text-[var(--primary)]">Let's Connect</h3>
+          <p class="text-[var(--muted-foreground)] mb-8 leading-relaxed">
+            I'm always interested in discussing new opportunities, innovative projects, and collaborations. Feel free to reach out!
+          </p>
+          <div class="space-y-4">
+            <div class="flex items-center gap-4 p-4 bg-[var(--background)] rounded-lg hover:shadow-md transition-all duration-300">
+              <div class="w-12 h-12 bg-[var(--primary)]/20 rounded-full flex items-center justify-center">
+                <span class="text-[var(--primary)] font-bold">📧</span>
+              </div>
+              <div>
+                <p class="font-medium text-[var(--foreground)]">Email</p>
+                <p class="text-[var(--muted-foreground)]">awindsr@gmail.com</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-4 p-4 bg-[var(--background)] rounded-lg hover:shadow-md transition-all duration-300">
+              <div class="w-12 h-12 bg-[var(--primary)]/20 rounded-full flex items-center justify-center">
+                <span class="text-[var(--primary)] font-bold">📱</span>
+              </div>
+              <div>
+                <p class="font-medium text-[var(--foreground)]">Phone</p>
+                <p class="text-[var(--muted-foreground)]">+919188684115</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-4 p-4 bg-[var(--background)] rounded-lg hover:shadow-md transition-all duration-300">
+              <div class="w-12 h-12 bg-[var(--primary)]/20 rounded-full flex items-center justify-center">
+                <span class="text-[var(--primary)] font-bold">🌐</span>
+              </div>
+              <div>
+                <p class="font-medium text-[var(--foreground)]">Website</p>
+                <p class="text-[var(--muted-foreground)]">theaw.in</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="animate-fade-in-up">
+          <div class="space-y-6">
+            <div>
+              <label class="block text-sm font-medium text-[var(--foreground)] mb-2">Name</label>
+              <input type="text" class="w-full px-4 py-3 bg-[var(--input)] border border-[var(--border)] rounded-lg focus:ring-2 focus:ring-[var(--primary)] focus:border-transparent transition-all duration-300" placeholder="Your Name">
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-[var(--foreground)] mb-2">Email</label>
+              <input type="email" class="w-full px-4 py-3 bg-[var(--input)] border border-[var(--border)] rounded-lg focus:ring-2 focus:ring-[var(--primary)] focus:border-transparent transition-all duration-300" placeholder="your.email@example.com">
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-[var(--foreground)] mb-2">Message</label>
+              <textarea rows="5" class="w-full px-4 py-3 bg-[var(--input)] border border-[var(--border)] rounded-lg focus:ring-2 focus:ring-[var(--primary)] focus:border-transparent transition-all duration-300 resize-none" placeholder="Your message..."></textarea>
+            </div>
+            <button class="w-full bg-[var(--primary)] text-[var(--primary-foreground)] py-3 rounded-lg hover:bg-[var(--primary)]/90 transition-all duration-300 hover:scale-[1.02] font-medium">
+              Send Message
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="py-8 bg-[var(--background)] border-t border-[var(--border)]">
+    <div class="max-w-6xl mx-auto px-6 text-center">
+      <p class="text-[var(--muted-foreground)]">© 2025 Awindas R. Built with passion and modern web technologies.</p>
+      <div class="flex justify-center gap-6 mt-4">
+        <a href="#" class="text-[var(--muted-foreground)] hover:text-[var(--primary)] transition-colors duration-300">LinkedIn</a>
+        <a href="#" class="text-[var(--muted-foreground)] hover:text-[var(--primary)] transition-colors duration-300">GitHub</a>
+        <a href="#" class="text-[var(--muted-foreground)] hover:text-[var(--primary)] transition-colors duration-300">Website</a>
+      </div>
+    </div>
+  </footer>
 
   <script>
-    const observer = new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting) e.target.classList.add('show');});},{threshold:0.12});
-    document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
-
-    function handleContact(e){
-      e.preventDefault();
-      const name=document.getElementById('name').value.trim();
-      const email=document.getElementById('email').value.trim();
-      const message=document.getElementById('message').value.trim();
-      if(!name||!email||!message) return alert('Please fill everything');
-      alert('Thanks '+name+' — I\'ll get back to you at '+email+'.');
+    function scrollToSection(sectionId) {
+      const element = document.getElementById(sectionId);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
     }
+
+    window.addEventListener('scroll', () => {
+      // Update navbar background on scroll
+      const navbar = document.getElementById('navbar');
+      if (window.scrollY > 50) {
+        navbar.classList.remove('bg-transparent');
+        navbar.classList.add('bg-[var(--background)]/95', 'backdrop-blur-sm', 'shadow-lg');
+      } else {
+        navbar.classList.remove('bg-[var(--background)]/95', 'backdrop-blur-sm', 'shadow-lg');
+        navbar.classList.add('bg-transparent');
+      }
+
+      // Update active section
+      const sections = ['home', 'about', 'experience', 'projects', 'skills', 'contact'];
+      let current = '';
+      sections.forEach(section => {
+        const element = document.getElementById(section);
+        if (element) {
+          const rect = element.getBoundingClientRect();
+          if (rect.top <= 100 && rect.bottom >= 100) {
+            current = section;
+          }
+        }
+      });
+
+      if (current) {
+        document.querySelectorAll('.nav-link').forEach(link => {
+          link.classList.remove('text-[var(--primary)]');
+          link.classList.add('text-[var(--foreground)]');
+          if (link.getAttribute('data-section') === current) {
+            link.classList.add('text-[var(--primary)]');
+            link.classList.remove('text-[var(--foreground)]');
+          }
+        });
+      }
+    });
   </script>
 </body>
 </html>
