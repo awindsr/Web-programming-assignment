@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Awindas R — Portfolio</title>
+  <meta name="description" content="Portfolio of Awindas R — Developer & Tech Lead. Built with HTML, CSS and JS. Pastel palette, micro-interactions, responsive." />
+
+  <!-- Google Font -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg: #FBFCFD;
+      --muted:#6B7280;
+      /* Two pastel accent colors only */
+      --accent-1: #E6E6FA; /* pastel lavender */
+      --accent-2: #D8BFD8; /* thistle */
+
+      --card-radius: 14px;
+      --glass: rgba(255,255,255,0.6);
+      --shadow: 0 6px 18px rgba(12,18,30,0.06);
+      --glass-2: rgba(255,255,255,0.7);
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%;}
+    body{
+      margin:0;
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: linear-gradient(180deg,var(--bg) 0%, #ffffff 100%);
+      color:#0f172a;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.45;
+      padding:32px;
+    }
+
+    .wrap{max-width:1100px;margin:0 auto;}
+    header{display:flex;align-items:center;justify-content:space-between;gap:24px;margin-bottom:28px}
+
+    .brand{display:flex;gap:14px;align-items:center}
+    .logo{
+      width:56px;height:56px;border-radius:12px;display:grid;place-items:center;font-weight:700;
+      background:linear-gradient(135deg,var(--accent-1),var(--accent-2));
+      color: #05263b; box-shadow: var(--shadow);
+    }
+    .brand h1{margin:0;font-size:18px;letter-spacing:0.2px}
+    .brand p{margin:0;font-size:12px;color:var(--muted)}
+
+    nav{display:flex;gap:14px;align-items:center}
+    .nav-link{padding:8px 12px;border-radius:10px;text-decoration:none;color:var(--muted);font-size:14px}
+    .nav-link:hover{background:var(--glass-2);color:#071126}
+
+    .hero{background:linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0.2));border-radius:20px;padding:28px;display:grid;grid-template-columns:1fr 360px;gap:28px;align-items:center;box-shadow:var(--shadow);}
+
+    .intro h2{font-size:28px;margin:0 0 8px}
+    .intro p{margin:0 0 18px;color:var(--muted)}
+
+    .cta{display:flex;gap:12px}
+    .btn{background:transparent;border:1px solid rgba(7,18,38,0.06);padding:10px 14px;border-radius:12px;cursor:pointer;font-weight:600}
+    .btn-primary{background:linear-gradient(90deg,var(--accent-1),var(--accent-2));box-shadow:0 8px 30px rgba(150,120,200,0.18);border:none}
+
+    .profile-card{background:linear-gradient(180deg, rgba(255,255,255,0.75), rgba(255,255,255,0.6));border-radius:16px;padding:20px;display:flex;gap:14px;align-items:center;box-shadow:var(--shadow)}
+    .avatar{width:72px;height:72px;border-radius:12px;background:linear-gradient(135deg,var(--accent-2),var(--accent-1));display:grid;place-items:center;font-weight:700;color:#05263b}
+
+    section{margin-top:28px}
+    .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .card{background:#fff;border-radius:var(--card-radius);padding:18px;box-shadow:var(--shadow);transition:transform .36s cubic-bezier(.2,.9,.2,1), box-shadow .36s}
+    .card:hover{transform:translateY(-8px);box-shadow:0 18px 40px rgba(12,18,30,0.08)}
+
+    .projects{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+    .project-card{display:flex;flex-direction:column;gap:12px;padding:18px;border-radius:12px;background:linear-gradient(180deg, rgba(230,230,250,0.06), rgba(216,191,216,0.03));border:1px solid rgba(7,18,38,0.03)}
+    .tags{display:flex;gap:8px}
+    .tag{padding:6px 8px;border-radius:8px;font-size:12px;background:rgba(255,255,255,0.6)}
+
+    .skill{display:flex;align-items:center;justify-content:space-between;gap:12px}
+    .skill .bar{height:10px;background:#fff;border-radius:999px;box-shadow:inset 0 2px 6px rgba(12,18,30,0.03);flex:1;margin-left:12px}
+    .bar > i{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,var(--accent-1),var(--accent-2));width:0%;transition:width 700ms}
+
+    .timeline{border-left:2px dashed rgba(7,18,38,0.06);padding-left:18px}
+    .timeline-item{margin-bottom:18px;position:relative}
+    .timeline-item::before{content:'';position:absolute;left:-11px;top:6px;width:14px;height:14px;border-radius:50%;background:linear-gradient(135deg,var(--accent-1),var(--accent-2));box-shadow:0 6px 18px rgba(12,18,30,0.06)}
+
+    .contact-form{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    input,textarea{padding:10px;border-radius:10px;border:1px solid rgba(7,18,38,0.06);font-size:14px}
+    textarea{grid-column:1/-1;min-height:110px}
+
+    footer{margin-top:28px;text-align:center;color:var(--muted);font-size:13px}
+
+    .float{animation:float 6s ease-in-out infinite}
+    @keyframes float{0%{transform:translateY(0)}50%{transform:translateY(-8px)}100%{transform:translateY(0)}}
+
+    .reveal{opacity:0;transform:translateY(10px);transition:opacity .6s ease, transform .6s ease}
+    .reveal.show{opacity:1;transform:translateY(0)}
+
+    @media (max-width:980px){.hero{grid-template-columns:1fr}.projects{grid-template-columns:1fr}.grid-3{grid-template-columns:repeat(2,1fr)}}
+    @media (max-width:640px){body{padding:18px}.grid-3{grid-template-columns:1fr}nav{display:none}header{flex-direction:column;align-items:flex-start}.profile-card{width:100%}.contact-form{grid-template-columns:1fr}.avatar{width:56px;height:56px}}
+
+    .underline{position:relative}
+    .underline:after{content:'';position:absolute;left:0;bottom:-4px;height:3px;width:0;background:linear-gradient(90deg,var(--accent-1),var(--accent-2));border-radius:4px;transition:width .28s}
+    .underline:hover:after{width:100%}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <div class="logo">AR</div>
+        <div>
+          <h1>Awindas R</h1>
+          <p>Developer • Tech Lead • UI-focused</p>
+        </div>
+      </div>
+      <nav>
+        <a class="nav-link" href="#about">About</a>
+        <a class="nav-link" href="#projects">Projects</a>
+        <a class="nav-link" href="#experience">Experience</a>
+        <a class="nav-link" href="#contact">Contact</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="intro">
+          <h2 class="reveal">Hi, I’m Awindas — building delightful web experiences.</h2>
+          <p class="reveal">Tech Lead & Frontend engineer with experience in React, Next.js and design systems.</p>
+          <div class="cta reveal">
+            <a class="btn btn-primary" href="awinsresume.pdf" target="_blank">View Resume</a>
+            <a class="btn underline" href="https://github.com/awindsr" target="_blank">GitHub</a>
+          </div>
+          <div class="grid-3">
+            <div class="card reveal"><h4>Location</h4><p class="muted">Palakkad, Kerala</p></div>
+            <div class="card reveal"><h4>Role</h4><p class="muted">Associate Developer & Tech Lead</p></div>
+            <div class="card reveal"><h4>Contact</h4><p class="muted">awindsr@gmail.com • +91 9188684115</p></div>
+          </div>
+        </div>
+        <aside class="profile-card float reveal">
+          <div class="avatar">AR</div>
+          <div class="meta">
+            <h3>Awindas R</h3>
+            <p class="muted">B.Tech CSE — 2025 • SJCET Palai</p>
+            <p><a class="underline" href="https://theaw.in" target="_blank">theaw.in</a></p>
+          </div>
+        </aside>
+      </section>
+
+      <section id="about">
+        <h3>About</h3>
+        <p class="muted">Creative developer with a focus on UX, design systems and scalable frontend architecture.</p>
+        <div style="display:grid;grid-template-columns:1fr 360px;gap:18px;margin-top:14px">
+          <div>
+            <h4>Skills</h4>
+            <div class="skill reveal"><div>React / Next.js</div><div class="bar"><i style="width:92%"></i></div></div>
+            <div class="skill reveal"><div>TypeScript / JavaScript</div><div class="bar"><i style="width:88%"></i></div></div>
+            <div class="skill reveal"><div>Design & Figma</div><div class="bar"><i style="width:78%"></i></div></div>
+            <div class="skill reveal"><div>Backend & APIs</div><div class="bar"><i style="width:72%"></i></div></div>
+          </div>
+          <div class="card reveal">
+            <h4>Contact</h4>
+            <p class="muted">awindsr@gmail.com</p>
+            <p class="muted">+91 9188684115</p>
+            <a class="btn" href="https://linkedin.com/in/awindsr" target="_blank">LinkedIn</a>
+            <a class="btn" href="https://github.com/awindsr" target="_blank">GitHub</a>
+          </div>
+        </div>
+      </section>
+
+      <section id="projects">
+        <h3>Selected Projects</h3>
+        <div class="projects">
+          <article class="project-card reveal"><div class="project-meta"><strong>MuLearn 4.0 Dashboard</strong><div class="tags"><span class="tag">React</span><span class="tag">Tailwind</span></div></div><p class="muted">Dashboard for 46,000+ users with React, TS, Django REST.</p></article>
+          <article class="project-card reveal"><div class="project-meta"><strong>Innovation Excellence Dashboard</strong><div class="tags"><span class="tag">React</span><span class="tag">Supabase</span></div></div><p class="muted">Full-stack dashboard with role-based access.</p></article>
+          <article class="project-card reveal"><div class="project-meta"><strong>TipMe</strong><div class="tags"><span class="tag">React</span><span class="tag">Supabase</span></div></div><p class="muted">Tipping app for restaurants.</p></article>
+          <article class="project-card reveal"><div class="project-meta"><strong>ECSA SJCET Website</strong><div class="tags"><span class="tag">React</span><span class="tag">jQuery</span></div></div><p class="muted">Dynamic website for ECSA.</p></article>
+        </div>
+      </section>
+
+      <section id="experience">
+        <h3>Experience & Education</h3>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+          <div class="card reveal"><h4>MuLearn — Associate Developer & Tech Lead</h4><p class="muted">Jan 2025 — Present</p><ul class="muted"><li>Led development of mulearn.org and platform for 46k+ users.</li><li>Managed team of 9+ and improved workflows.</li></ul></div>
+          <div class="card reveal"><h4>St. Joseph's College of Engineering and Technology</h4><p class="muted">B.Tech CSE (2021 - 2025)</p></div>
+        </div>
+      </section>
+
+      <section id="contact">
+        <h3>Get in touch</h3>
+        <form class="contact-form" onsubmit="handleContact(event)">
+          <div><label class="muted">Name</label><input id="name" required></div>
+          <div><label class="muted">Email</label><input id="email" type="email" required></div>
+          <div style="grid-column:1/-1"><label class="muted">Message</label><textarea id="message" required></textarea></div>
+          <div style="grid-column:1/-1;text-align:right"><button class="btn btn-primary" type="submit">Send</button></div>
+        </form>
+      </section>
+
+      <footer><p>Made with care • Pastel lavender palette • © Awindas R</p></footer>
+    </main>
+  </div>
+
+  <script>
+    const observer = new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting) e.target.classList.add('show');});},{threshold:0.12});
+    document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+
+    function handleContact(e){
+      e.preventDefault();
+      const name=document.getElementById('name').value.trim();
+      const email=document.getElementById('email').value.trim();
+      const message=document.getElementById('message').value.trim();
+      if(!name||!email||!message) return alert('Please fill everything');
+      alert('Thanks '+name+' — I\'ll get back to you at '+email+'.');
+    }
+  </script>
+</body>
+</html>
